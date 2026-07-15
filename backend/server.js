@@ -1,28 +1,25 @@
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import connectDB from "./config/mongodb.js";
 
-//db_user0205
-// 3OOE6ZS5qEN5XpYR
+dotenv.config();
 
+const app = express();
+connectDB();
 
-import express from 'express'
-import cors from 'cors'
-import 'dotenv/config'
-import connectDB from './config/mongodb.js'
+const PORT = process.env.PORT || 4000;
 
-//app config
+// Middleware
+app.use(express.json());
+app.use(cors());
 
-const app = express()
-const port = process.env.PORT || 4000
-connectDB()
+// Route
+app.get("/", (req, res) => {
+    res.send("API Working");
+});
 
- //middlewares
- app.use(express.json())
- app.use(cors())
-
- //api endpoints
-
-app.get('/',(req,res)=>{
-    res.send("API Working")
-})
-
-app.listen(port, ()=> console.log('Server started on PORT : ' + port))
-
+// Start server
+app.listen(PORT, () => {
+    console.log(`Server Started on PORT ${PORT}`);
+});
