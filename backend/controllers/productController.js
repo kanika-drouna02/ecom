@@ -1,9 +1,11 @@
 import productModel from "../models/productModel.js";
-import cloudinary from "../config/cloudinary.js";
+import connectCloudinary from "../config/cloudinary.js";
+import { v2 as cloudinary } from "cloudinary";
 
 const addProduct = async (req, res) => {
 
     try {
+
 
         const {
             name,
@@ -65,4 +67,37 @@ const addProduct = async (req, res) => {
 
 }
 
-export { addProduct };
+const listProduct = async (req, res) => {
+    try {
+        const products = await productModel.find({});
+        res.json({
+            success: true,
+            products
+        });
+    } catch (error) {
+        console.log(error);
+        res.json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
+const removeProduct = async (req, res) => {
+    try {
+        await productModel.findByIdAndDelete(req.body.id);
+
+        res.json({
+            success: true,
+            message: "Product Removed"
+        });
+    } catch (error) {
+        console.log(error);
+        res.json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
+export { addProduct, listProduct, removeProduct };

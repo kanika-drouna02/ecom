@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/mongodb.js";
 import userRouter from "./routes/userRoute.js";
-import "./config/cloudinary.js";
+import connectCloudinary from "./config/cloudinary.js";"./config/cloudinary.js";
 import productRouter from "./routes/productRoute.js";
 
 dotenv.config();
@@ -12,7 +12,7 @@ const app = express();
 
 
 connectDB();
-//connectCloudinary();
+connectCloudinary();
 
 // Middleware
 app.use(express.json());
