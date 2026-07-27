@@ -4,10 +4,12 @@ import adminAuth from "../middleware/adminAuth.js";
 
 import {
     placeOrder,
+    placeOrderStripe,
+    verifyStripe,
     placeOrderRazorpay,
     verifyRazorpay,
-    userOrders,
     allOrders,
+    userOrders,
     updateStatus
 } from "../controllers/orderController.js";
 
@@ -15,9 +17,12 @@ const orderRouter = express.Router();
 
 // User
 orderRouter.post("/place", authUser, placeOrder);
-orderRouter.post("/place-razorpay", authUser, placeOrderRazorpay);
+orderRouter.post("/razorpay", authUser, placeOrderRazorpay);
 orderRouter.post("/verifyRazorpay", authUser, verifyRazorpay);
 orderRouter.post("/userorders", authUser, userOrders);
+orderRouter.post("/stripe", authUser, placeOrderStripe);
+orderRouter.post("/verifyStripe", authUser, verifyStripe);
+
 
 // Admin
 orderRouter.post("/list", adminAuth, allOrders);
